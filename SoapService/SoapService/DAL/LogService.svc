@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SoapService.DAL.LogService" CodeBehind="LogService.svc.cs" %>

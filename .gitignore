@@ -1,0 +1,10 @@
+### VS ###
+SoapService/packages/
+SoapService/SoapService/bin/
+SoapService/SoapService/obj/
+SoapService/SoapService/App_Data/
+
+### IDEA ###
+target/
+.idea/
+

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.spring.rest</groupId>
+    <artifactId>client</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>client</name>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.8.RELEASE</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!--soap -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ws</groupId>
+            <artifactId>spring-ws-support</artifactId>
+        </dependency>
+        <!--end soap-->
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-codegen-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <!--deal-->
+                    <execution>
+                        <id>0</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <!--<sourceRoot>${project.basedir}/src/main/java/</sourceRoot>-->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:51838/DAL/DealService.svc?wsdl</wsdl>
+                                    <packagenames>
+                                        <packagename>
+                                            http://dealservice.com=wsdl.deal
+                                        </packagename>
+                                        <packagename>
+                                            http://dealservice.com/bean=wsdl.deal.bean
+                                        </packagename>
+                                        <packagename>
+                                            http://regionservice.com/bean=wsdl.deal.bean.region
+                                        </packagename>
+                                        <packagename>
+                                            http://flatservice.com/bean=wsdl.deal.bean.flat
+                                        </packagename>
+                                    </packagenames>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                    <!--region-->
+                    <execution>
+                        <id>1</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <!--<sourceRoot>${project.basedir}/src/main/java/</sourceRoot>-->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:51838/DAL/RegionService.svc?wsdl</wsdl>
+                                    <packagenames>
+                                        <packagename>
+                                            http://regionservice.com=wsdl.region
+                                        </packagename>
+                                        <packagename>
+                                            http://regionservice.com/bean=wsdl.region.bean
+                                        </packagename>
+                                        <packagename>
+                                            http://flatservice.com/bean=wsdl.region.bean.flat
+                                        </packagename>
+                                        <packagename>
+                                            http://dealservice.com/bean=wsdl.region.bean.deal
+                                        </packagename>
+                                    </packagenames>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                    <!--flat-->
+                    <execution>
+                        <id>2</id>
+                        <phase>generate-sources</phase>
+                        <configuration>
+                            <!--<sourceRoot>${project.basedir}/src/main/java/</sourceRoot>-->
+                            <wsdlOptions>
+                                <wsdlOption>
+                                    <wsdl>http://localhost:51838/DAL/FlatService.svc?wsdl</wsdl>
+                                    <packagenames>
+                                        <packagename>
+                                            http://flatservice.com=wsdl.flat
+                                        </packagename>
+                                        <packagename>
+                                            http://flatservice.com/bean=wsdl.flat.bean
+                                        </packagename>
+                                        <packagename>
+                                            http://regionservice.com/bean=wsdl.flat.bean.region
+                                        </packagename>
+                                        <packagename>
+                                            http://dealservice.com/bean=wsdl.flat.bean.deal
+                                        </packagename>
+                                    </packagenames>
+                                </wsdlOption>
+                            </wsdlOptions>
+                        </configuration>
+                        <goals>
+                            <goal>wsdl2java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <description>Rest client app based on spring framework</description>
+</project>
