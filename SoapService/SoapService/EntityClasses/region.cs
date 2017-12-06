@@ -9,7 +9,7 @@ using SoapService.EnumsAndConstants;
 
 namespace SoapService.EntityClasses
 {
-    [DataContract(IsReference = true, Namespace = Constants.BindingNamespaceRegion + "/bean")]
+    [DataContract(IsReference = true, Namespace = Constants.BindingBeans)]
     public class Region
     {
         [DataMember]

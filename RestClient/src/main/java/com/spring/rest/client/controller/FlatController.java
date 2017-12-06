@@ -16,7 +16,7 @@ public class FlatController {
     @Autowired
     private LocalFlatService service;
 
-    @RequestMapping(value = "/all/")
+    @RequestMapping(value = "/all")
     public List<FlatBean> getFlats() {
         return service.getFlats();
     }
@@ -26,9 +26,9 @@ public class FlatController {
         return service.getFlat(flatId);
     }
 
-    @RequestMapping(value = "/update/")
+    @RequestMapping(value = "/update")
     public String updateFlat(@RequestParam("flatId") final int flatId,
-                             @RequestParam("flatArea") final float flatArea,
+                             @RequestParam("flatArea") final double flatArea,
                              @RequestParam("flatRooms") final int flatRooms,
                              @RequestParam("haveBalcony") final boolean haveBalcony,
                              @RequestParam("regionId") final int regionId,
@@ -44,7 +44,7 @@ public class FlatController {
         )));
     }
 
-    @RequestMapping(value = "/add/")
+    @RequestMapping(value = "/add")
     public String addFlat(@RequestParam("flatId") final int flatId,
                           @RequestParam("flatArea") final float flatArea,
                           @RequestParam("flatRooms") final int flatRooms,
@@ -62,7 +62,7 @@ public class FlatController {
         )));
     }
 
-    @RequestMapping(value = "/remove/")
+    @RequestMapping(value = "/remove")
     public String removeFlat(@RequestParam("flatId") final int flatId) {
         return service.removeFlat(flatId);
     }

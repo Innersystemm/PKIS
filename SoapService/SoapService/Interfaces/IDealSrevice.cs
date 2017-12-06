@@ -19,7 +19,7 @@ namespace SoapService.Interfaces
         Deal GetDeal(int id);
 
         [OperationContract]
-        List<Deal> GetAllDeals(int recordsCount = -1);
+        List<Deal> GetAllDeals();
 
         [OperationContract]
         void UpdateDeal(Deal deals);
@@ -28,6 +28,6 @@ namespace SoapService.Interfaces
         void RemoveDeal(int id);
 
         [OperationContract]
-        List<Deal> GetDealsByPeriod(DateTime from, DateTime to, int recordsCount = -1);
+        List<Deal> GetDealsByPeriod(DateTime from, DateTime to);
     }
 }

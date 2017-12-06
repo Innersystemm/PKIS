@@ -6,14 +6,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import wsdl.bean.Flat;
 import wsdl.flat.FlatService;
-import wsdl.flat.bean.Flat;
 
 import java.util.List;
 
 @Repository
 public class LocalFlatService {
-    private static final Logger Log = LoggerFactory.getLogger(LocalFlatService.class);
+    private final Logger Log = LoggerFactory.getLogger(LocalFlatService.class);
     private FlatService flatService = new FlatService();
 
     @Autowired

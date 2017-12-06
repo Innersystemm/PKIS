@@ -43,56 +43,37 @@ namespace SoapService.Contexts
     {
         protected override void Seed(ServiceDbContext context)
         {
-            List<Deal> deals = new List<Deal>()
-            {
-                new Deal()
-                {
-                    Date = DateTime.Now,
-                    Price = 4500000,
-                    Flat = new Flat()
-                    {
-                        Area = 200,
-                        Balcony = true,
-                        Region = new Region()
-                        {
-                            Name = "dsa",
-                            Flats = new List<Flat>()
-                        }
-                        , Rooms = 10 }
-                },
-                new Deal()
-                {
-                    Date = new DateTime(2016,10,12),
-                    Price = 450000,
-                    Flat = new Flat()
-                    {
-                        Area = 20,
-                        Balcony = true,
-                        Region = new Region()
-                        {
-                            Name = "dsa",
-                            Flats = new List<Flat>()
-                        }
-                        , Rooms = 1 }
-                },
-                new Deal()
-                {
-                    Date = new DateTime(2016,10,12),
-                    Price = 1500000,
-                    Flat = new Flat()
-                    {
-                        Area = 2200,
-                        Balcony = false,
-                        Region = new Region()
-                        {
-                            Name = "dsa",
-                            Flats = new List<Flat>()
-                        }
-                        , Rooms = 110 }
-                }
-            };
-            context.Deals.AddRange(deals);
+            context.Configuration.AutoDetectChangesEnabled = false;
+            context.Deals.AddRange(SeedDeals(15));
+            context.Configuration.AutoDetectChangesEnabled = true;
 
+        }
+
+        protected List<Deal> SeedDeals(uint count = 50)
+        {
+            List<Deal> result = new List<Deal>();
+            if (count < 1) return result;
+            Random rand = new Random();
+            string name = "some name";
+            for (int index = 0; index < count; index++)
+            {
+                result.Add(new Deal()
+                {
+                    Date = DateTime.Today,
+                    Price = rand.Next(100000, 10000000),
+                    Flat = new Flat()
+                    {
+                        Area = rand.Next(10, 300),
+                        Rooms = rand.Next(1, 6),
+                        Balcony = Convert.ToBoolean(rand.Next(0, 1)),
+                        Region = new Region()
+                        {
+                            Name = new string(name.Select(n => name.ElementAt(rand.Next(0, name.Length))).ToArray())
+                        }
+                    }
+                });
+            }
+            return result;
         }
     }
 

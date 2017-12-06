@@ -10,5 +10,7 @@ namespace SoapService.EnumsAndConstants
         public const string BindingNamespaceRegion = "http://regionservice.com";
         public const string BindingNamespaceDeal = "http://dealservice.com";
         public const string BindingNamespaceFlat= "http://flatservice.com";
+        public const string BindingBeans = "http://beans.com";
+
     }
 }

@@ -35,6 +35,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--soap -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -76,13 +82,7 @@
                                             http://dealservice.com=wsdl.deal
                                         </packagename>
                                         <packagename>
-                                            http://dealservice.com/bean=wsdl.deal.bean
-                                        </packagename>
-                                        <packagename>
-                                            http://regionservice.com/bean=wsdl.deal.bean.region
-                                        </packagename>
-                                        <packagename>
-                                            http://flatservice.com/bean=wsdl.deal.bean.flat
+                                            http://beans.com=wsdl.bean
                                         </packagename>
                                     </packagenames>
                                 </wsdlOption>
@@ -106,13 +106,7 @@
                                             http://regionservice.com=wsdl.region
                                         </packagename>
                                         <packagename>
-                                            http://regionservice.com/bean=wsdl.region.bean
-                                        </packagename>
-                                        <packagename>
-                                            http://flatservice.com/bean=wsdl.region.bean.flat
-                                        </packagename>
-                                        <packagename>
-                                            http://dealservice.com/bean=wsdl.region.bean.deal
+                                            http://beans.com=wsdl.bean
                                         </packagename>
                                     </packagenames>
                                 </wsdlOption>
@@ -136,13 +130,7 @@
                                             http://flatservice.com=wsdl.flat
                                         </packagename>
                                         <packagename>
-                                            http://flatservice.com/bean=wsdl.flat.bean
-                                        </packagename>
-                                        <packagename>
-                                            http://regionservice.com/bean=wsdl.flat.bean.region
-                                        </packagename>
-                                        <packagename>
-                                            http://dealservice.com/bean=wsdl.flat.bean.deal
+                                            http://beans.com=wsdl.bean
                                         </packagename>
                                     </packagenames>
                                 </wsdlOption>

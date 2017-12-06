@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import wsdl.bean.Region;
 import wsdl.region.RegionService;
-import wsdl.region.bean.Region;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import static com.spring.rest.client.Constants.SuccessfulOperations;
 
 @Repository
 public class LocalRegionService {
-    private static final Logger Log = LoggerFactory.getLogger(LocalRegionService.class);
+    private final Logger Log = LoggerFactory.getLogger(LocalRegionService.class);
     private final RegionService regionService = new RegionService();
 
     @Autowired

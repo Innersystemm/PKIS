@@ -9,7 +9,7 @@ using SoapService.EnumsAndConstants;
 
 namespace SoapService.EntityClasses
 {
-    [DataContract(IsReference = true, Namespace = Constants.BindingNamespaceDeal + "/bean")]
+    [DataContract(IsReference = true, Namespace = Constants.BindingBeans)]
     public class Deal
     {
         [DataMember]
@@ -18,11 +18,12 @@ namespace SoapService.EntityClasses
         public int DealID { get; set; }
 
         [DataMember(Name = "DealDate")]
+        [Column(TypeName = "date")]
         [Required]
         public DateTime Date { get; set; }
 
         [DataMember]
-        public float Price { get; set; }
+        public double Price { get; set; }
 
         [DataMember(Name = "DealFlat")]
         public Flat Flat { get; set; }

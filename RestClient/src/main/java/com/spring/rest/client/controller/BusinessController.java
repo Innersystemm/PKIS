@@ -2,54 +2,52 @@ package com.spring.rest.client.controller;
 
 import com.spring.rest.client.bean.AverageStatisticBean;
 import com.spring.rest.client.bean.DealBean;
-import com.spring.rest.client.bean.DetailedStatisticBean;
 import com.spring.rest.client.service.BusinessProcessService;
+import com.spring.rest.client.service.DateConverterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/statistic/")
 public class BusinessController {
     @Autowired
-    BusinessProcessService businessProcessService;
+    private BusinessProcessService businessProcessService;
 
-    @RequestMapping("/getDetailedStatistic/")
+    @Autowired
+    private DateConverterService dateConverterService;
+
+    @RequestMapping("/byInterval/detailed")
     public List<DealBean> getDetailedStatistic(@RequestParam("from") final String from,
-                                               @RequestParam("to")final String to) {
-        try {
-            final Date fromDate = new SimpleDateFormat("dd-MM-yyyy").parse(from);
-            final Date toDate = new SimpleDateFormat("dd-MM-yyyy").parse(to);
-            return businessProcessService.getDetailedStatistic(fromDate, toDate);
-        }catch (ParseException e){
-            return null;
-        }
+                                               @RequestParam("to") final String to,
+                                               @RequestParam("skip") final int skip,
+                                               @RequestParam("recordsCount") final int recordsCount) {
+        return businessProcessService.getDetailedStatisticByInterval(
+                dateConverterService.toLocalDateTime(from),
+                dateConverterService.toLocalDateTime(to), skip, recordsCount);
     }
 
-    @RequestMapping("/getAverageStatistic/")
+    @RequestMapping("/byInterval/average")
     public AverageStatisticBean getAverageStatistic(@RequestParam("from") final String from,
-                                                    @RequestParam("to")final String to){
-        try {
-            final Date fromDate = new SimpleDateFormat("dd-MM-yyyy").parse(from);
-            final Date toDate = new SimpleDateFormat("dd-MM-yyyy").parse(to);
-            return businessProcessService.getAverageStatistic(fromDate, toDate);
-        }catch (ParseException e){
-            return null;
-        }
+                                                    @RequestParam("to") final String to) {
+
+        return businessProcessService.getAverageStatisticByInterval(
+                dateConverterService.toLocalDateTime(from),
+                dateConverterService.toLocalDateTime(to));
     }
 
-    @RequestMapping("/getDetailedStatisticByValue/")
-    public Map<String,String[]> getDetailedStatisticByValue(@RequestParam("recordsCount") final int recordsCount,
-                                                          HttpServletRequest request){
-        return request.getParameterMap();
+    @RequestMapping("/getDetailedStatisticByValue")
+    public List<DealBean> getDetailedStatisticByValue(@RequestParam("params") final List<String> params,
+                                                      @RequestParam("skip") final int skip,
+                                                      @RequestParam("recordsCount") final int recordsCount) {
+        return businessProcessService.getDetailedStatisticByParameters(params, skip, recordsCount);
+    }
+
+    @RequestMapping("/getAverageStatisticByValue")
+    public AverageStatisticBean getAverageStatisticByValue(@RequestParam("params") final List<String> params) {
+        return businessProcessService.getAverageStatisticByParameters(params);
     }
 }

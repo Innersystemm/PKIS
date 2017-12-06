@@ -3,8 +3,9 @@ SoapService/packages/
 SoapService/SoapService/bin/
 SoapService/SoapService/obj/
 SoapService/SoapService/App_Data/
+SoapService/.vs/
 
 ### IDEA ###
-target/
+!target//generated-sources/cxf/
 .idea/
 

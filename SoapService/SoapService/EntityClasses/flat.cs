@@ -9,7 +9,7 @@ using System.Web;
 
 namespace SoapService.EntityClasses
 {
-    [DataContract(IsReference = true, Namespace = Constants.BindingNamespaceFlat + "/bean")]
+    [DataContract(IsReference = true, Namespace = Constants.BindingBeans)]
     public class Flat
     {
         [DataMember]
@@ -19,7 +19,7 @@ namespace SoapService.EntityClasses
 
         [DataMember]
         [Required]
-        public float Area { get; set; }
+        public double Area { get; set; }
 
         [DataMember]
         [Required]

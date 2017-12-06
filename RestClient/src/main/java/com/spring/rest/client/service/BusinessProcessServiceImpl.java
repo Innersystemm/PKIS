@@ -2,73 +2,107 @@ package com.spring.rest.client.service;
 
 import com.spring.rest.client.bean.AverageStatisticBean;
 import com.spring.rest.client.bean.DealBean;
-import com.spring.rest.client.bean.DetailedStatisticBean;
-import com.sun.xml.internal.bind.v2.util.CollisionCheckStack;
+import com.spring.rest.client.bean.ParsedParameter;
+import com.spring.rest.client.configuration.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
-import java.util.function.Predicate;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 
 @Service
 public class BusinessProcessServiceImpl implements BusinessProcessService {
+    private final Logger log = LoggerFactory.getLogger(BusinessProcessServiceImpl.class);
+
     @Autowired
     private LocalDealService dealService;
 
     @Autowired
-    private ClassesConverterService converter;
+    private ParameterParserService parameterParser;
 
-
-    @Override
-    public List<DealBean> getDetailedStatistic(Date from, Date to) {
-        if (from.after(to)) {
-            return null;
-        }
-        return getDealBeans(from, to, -1);
-    }
+    @Autowired
+    private Configuration configuration;
 
     @Override
-    public AverageStatisticBean getAverageStatistic(Date from, Date to) {
-        if (from.after(to)) {
-            return null;
-        }
-        List<DealBean> dealsFilteredByDate = getDealBeans(from, to, -1);
-
-        return new AverageStatisticBean(dealsFilteredByDate.stream().map(DealBean::getPrice).mapToLong(Float::longValue).sum(),
-                dealsFilteredByDate.stream().map(n -> (double) n.getFlat().getFlatArea()).collect(Collectors.averagingDouble(Double::doubleValue)).floatValue(),
-                new Double(dealsFilteredByDate.stream().mapToInt(n -> n.getFlat().getFlatRooms()).average().orElse(0)).intValue());
-    }
-
-    private List<DealBean> getDealBeans(Date from, Date to, int recordsCount) {
-        List<DealBean> dealBeans = dealService.getDeals(recordsCount).stream()
-                .filter(n -> n.getDealDate().after(from) && n.getDealDate().before(to)).collect(Collectors.toList());
-        if (null == dealBeans || dealBeans.size() == 0) {
+    public List<DealBean> getDetailedStatisticByInterval(LocalDateTime from, LocalDateTime to, int skip, int recordsCount) {
+        try {
+            return dealService.getDeals(from, to).stream().skip(skip).limit(recordsCount).collect(Collectors.toList());
+        } catch (Exception e) {
+            log.error("getDetailedStatisticByInterval", e);
             return new ArrayList<>();
         }
-        return dealBeans;
+    }
+
+    public AverageStatisticBean getAverageStatisticByInterval(List<DealBean> dataSource, LocalDateTime from, LocalDateTime to) {
+        try {
+            List<DealBean> dealsFilteredByDate = dataSource.stream()
+                    .filter(n->n.getDealDate().isBefore(to) && n.getDealDate().isAfter(from)).collect(Collectors.toList());
+
+            return new AverageStatisticBean(
+                    dealsFilteredByDate.stream()
+                            .mapToDouble(n -> n.getPrice().orElse(-1)).average().orElse(-1),
+                    dealsFilteredByDate.stream()
+                            .mapToDouble(n -> n.getFlat().getFlatArea().orElse(-1))
+                            .average().orElse(-1),
+                    dealsFilteredByDate.stream()
+                            .mapToDouble(n -> n.getFlat().getFlatRooms().orElse(-1))
+                            .average().orElse(-1));
+        } catch (Exception e) {
+            log.error("getDetailedStatisticByInterval", e);
+            return new AverageStatisticBean(-1, -1, -1);
+        }
     }
 
     @Override
-    public List<DealBean> getDetailedStatisticByParameters(final Map<String, String[]> parameterNames) {
-        List<DealBean> filterByRegions = new ArrayList<>();
-        List<DealBean> filterByArea = new ArrayList<>();
-        List<DealBean> filterByRooms = new ArrayList<>();
-        if (parameterNames.containsKey("region")) {
-            filterByRegions = dealService.getDeals(-1).stream().filter(n -> n.getFlat().getFlatRegion()
-                    .getRegionName().equalsIgnoreCase(parameterNames.get("region")[0])).collect(Collectors.toList());
-        }
-        if (parameterNames.containsKey("flatArea")) {
-            filterByArea = dealService.getDeals(-1).stream().filter(n -> n.getFlat().getFlatArea() == Float
-                    .valueOf(parameterNames.get("flatArea")[0])).collect(Collectors.toList());
-        }
-        if (parameterNames.containsKey("flatRooms")) {
-            filterByRooms = dealService.getDeals(-1).stream().filter(n -> n.getFlat().getFlatRooms() == Float
-                    .valueOf(parameterNames.get("flatRooms")[0])).collect(Collectors.toList());
-        }
-
-        return null;
+    public AverageStatisticBean getAverageStatisticByInterval(LocalDateTime from, LocalDateTime to) {
+        return getAverageStatisticByInterval(dealService.getDeals(), from, to);
     }
 
+    public List<DealBean> getDetailedStatisticByParameters(final List<String> parameterNames, int skip, int recordsCount) {
+        List<DealBean> localCollection = dealService.getDeals();
+        for (String request : parameterNames) {
+            ParsedParameter parsedParameter = parameterParser.parseParameter(request);
+            if (configuration.getIntKeys().contains(parsedParameter.getParameterName())) {
+                localCollection = localCollection.stream().filter(
+                        n -> parameterParser.compare(
+                                (double) ((OptionalInt) parameterParser.getFieldValue(n, parsedParameter.getParameterName())).orElse(-1),
+                                parsedParameter.doubleValue(),
+                                parsedParameter.getToken()
+                        ))
+                        .collect(Collectors.toList());
+            } else if (configuration.getDoubleKeys().contains(parsedParameter.getParameterName())) {
+                localCollection = localCollection.stream().filter(
+                        n -> parameterParser.compare(
+                                ((OptionalDouble) parameterParser.getFieldValue(n, parsedParameter.getParameterName())).orElse(-1),
+                                parsedParameter.doubleValue(),
+                                parsedParameter.getToken()
+                        ))
+                        .collect(Collectors.toList());
+            } else if (configuration.getStringKeys().contains(parsedParameter.getParameterName())) {
+                localCollection = localCollection.stream().filter(
+                        n -> parameterParser.compare(
+                                (String) parameterParser.getFieldValue(n, parsedParameter.getParameterName()),
+                                parsedParameter.stringValue(),
+                                parsedParameter.getToken()
+                        ))
+                        .collect(Collectors.toList());
+            }
+        }
+        return localCollection.stream().skip(skip).limit(recordsCount).collect(Collectors.toList());
+    }
 
+    @Override
+    public AverageStatisticBean getAverageStatisticByParameters(final List<String> parameterNames) {
+        return getAverageStatisticByInterval(
+                getDetailedStatisticByParameters(parameterNames, 0, 999999999),
+                LocalDateTime.of(1500, 12, 1, 0 ,0 ,0),
+                LocalDateTime.now());
+    }
 }

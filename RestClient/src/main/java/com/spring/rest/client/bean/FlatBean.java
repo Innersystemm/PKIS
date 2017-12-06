@@ -1,49 +1,63 @@
 package com.spring.rest.client.bean;
 
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
+
 public class FlatBean {
-    private int flatId;
-    private float flatArea;
-    private int flatRooms;
-    private boolean haveBalcony;
+    private OptionalInt flatId;
+    private OptionalDouble flatArea;
+    private OptionalInt flatRooms;
+    private Optional<Boolean> haveBalcony;
     private RegionBean flatRegion;
 
-    public FlatBean(int flatId, float flatArea, int flatRooms, boolean haveBalcony, RegionBean flatRegion) {
-        setFlatId(flatId);
-        setFlatArea(flatArea);
-        setFlatRooms(flatRooms);
-        setHaveBalcony(haveBalcony);
-        setFlatRegion(flatRegion);
+    public FlatBean(final OptionalInt flatId, final OptionalDouble flatArea,
+                    final OptionalInt flatRooms, final Optional<Boolean> haveBalcony, final RegionBean flatRegion) {
+        this.flatId = flatId;
+        this.flatArea = flatArea;
+        this.flatRooms = flatRooms;
+        this.haveBalcony = haveBalcony;
+        this.flatRegion = flatRegion;
     }
 
-    public int getFlatId() {
+    public FlatBean(final int flatId, final double flatArea,
+                    final int flatRooms, final Boolean haveBalcony, final RegionBean flatRegion) {
+        this.flatId = OptionalInt.of(flatId);
+        this.flatArea = OptionalDouble.of(flatArea);
+        this.flatRooms = OptionalInt.of(flatRooms);
+        this.haveBalcony = Optional.of(haveBalcony);
+        this.flatRegion = flatRegion;
+    }
+
+    public OptionalInt getFlatId() {
         return flatId;
     }
 
-    public void setFlatId(int flatId) {
+    public void setFlatId(OptionalInt flatId) {
         this.flatId = flatId;
     }
 
-    public float getFlatArea() {
+    public OptionalDouble getFlatArea() {
         return flatArea;
     }
 
-    public void setFlatArea(float flatArea) {
+    public void setFlatArea(OptionalDouble flatArea) {
         this.flatArea = flatArea;
     }
 
-    public int getFlatRooms() {
+    public OptionalInt getFlatRooms() {
         return flatRooms;
     }
 
-    public void setFlatRooms(int flatRooms) {
+    public void setFlatRooms(OptionalInt flatRooms) {
         this.flatRooms = flatRooms;
     }
 
-    public boolean isHaveBalcony() {
+    public Optional<Boolean> getHaveBalcony() {
         return haveBalcony;
     }
 
-    public void setHaveBalcony(boolean haveBalcony) {
+    public void setHaveBalcony(Optional<Boolean> haveBalcony) {
         this.haveBalcony = haveBalcony;
     }
 

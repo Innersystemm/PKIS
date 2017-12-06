@@ -1,38 +1,37 @@
 package com.spring.rest.client.bean;
 
 public class AverageStatisticBean {
-    private long averageDealCost;
-    private float averageFlatArea;
-    private int averageRoomsCount;
+    private double averageDealCost;
+    private double averageFlatArea;
+    private double averageRoomsCount;
 
-    public AverageStatisticBean(long averageDealCost, float averageFlatArea, int averageRoomsCount) {
-
+    public AverageStatisticBean(double averageDealCost, double averageFlatArea, double averageRoomsCount) {
         this.averageDealCost = averageDealCost;
         this.averageFlatArea = averageFlatArea;
         this.averageRoomsCount = averageRoomsCount;
     }
 
-    public long getAverageDealCost() {
+    public double getAverageDealCost() {
         return averageDealCost;
     }
 
-    public void setAverageDealCost(long averageDealCost) {
+    public void setAverageDealCost(double averageDealCost) {
         this.averageDealCost = averageDealCost;
     }
 
-    public float getAverageFlatArea() {
+    public double getAverageFlatArea() {
         return averageFlatArea;
     }
 
-    public void setAverageFlatArea(float averageFlatArea) {
+    public void setAverageFlatArea(double averageFlatArea) {
         this.averageFlatArea = averageFlatArea;
     }
 
-    public int getAverageRoomsCount() {
+    public double getAverageRoomsCount() {
         return averageRoomsCount;
     }
 
-    public void setAverageRoomsCount(int averageRoomsCount) {
+    public void setAverageRoomsCount(double averageRoomsCount) {
         this.averageRoomsCount = averageRoomsCount;
     }
 }

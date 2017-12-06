@@ -49,17 +49,13 @@ namespace SoapService.DAL
         public Deal GetDeal(int id)
         {
             OnAction(DebugLevel.Information, string.Format("Get deal -- {0}", id), "", "", DateTime.Now);
-            return ServiceContext.Deals.Include("Flat").Where(iten => iten.DealID == id).First();
+            return ServiceContext.Deals.Include("Flat").Where(iten => iten.DealID == id).FirstOrDefault();
         }
 
-        public List<Deal> GetAllDeals(int recordsCount = -1)
+        public List<Deal> GetAllDeals()
         {
             OnAction(DebugLevel.Information, string.Format("Getting all deals"), "", "", DateTime.Now);
-            if (recordsCount > 0)
-            {
-                return ServiceContext.Deals.Include("Flat").Take(recordsCount).ToList();
-            }
-            return ServiceContext.Deals.Include("Flat").ToList();
+            return ServiceContext.Deals.Include(n=>n.Flat).Include(n=>n.Flat.Region).ToList();
         }
 
         public void UpdateDeal(Deal deals)
@@ -90,16 +86,11 @@ namespace SoapService.DAL
             OnAction(DebugLevel.Error, string.Format("Item {0} not removed", dealforRemove.GetType()), "", "", DateTime.Now);
         }
 
-        public List<Deal> GetDealsByPeriod(DateTime from, DateTime to, int count = -1)
+        public List<Deal> GetDealsByPeriod(DateTime from, DateTime to)
         {
-            if (count < -1) return new List<Deal>();
             try
             {
-                var dealsByPeriod = ServiceContext.Deals.Where(n => n.Date >= from && n.Date <= to);
-                if (count == -1)
-                    return dealsByPeriod.ToList();
-                else
-                    return dealsByPeriod.Take(count).ToList();
+                return ServiceContext.Deals.Include(n=>n.Flat).Include(n=>n.Flat.Region).Where(n => n.Date >= from && n.Date <= to).ToList();
             }
             catch (Exception e)
             {

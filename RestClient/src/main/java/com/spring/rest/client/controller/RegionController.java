@@ -26,19 +26,19 @@ public class RegionController {
         return service.getRegion(regionId);
     }
 
-    @RequestMapping(value = "/update/")
+    @RequestMapping(value = "/update")
     public String updateRegion(@RequestParam("regionId") final int regionId,
                                @RequestParam("regionName") final String regionName) {
         return service.updateRegion(service.convertRegionBean(new RegionBean(regionId, regionName)));
     }
 
-    @RequestMapping(value = "/add/")
+    @RequestMapping(value = "/add")
     public String addRegion(@RequestParam("regionId") final int regionId,
                             @RequestParam("regionName") final String regionName) {
         return service.addRegion(service.convertRegionBean(new RegionBean(regionId, regionName)));
     }
 
-    @RequestMapping(value = "/remove/")
+    @RequestMapping(value = "/remove")
     public String removeRegion(@RequestParam("regionId") final int regionId) {
         return service.removeRegion(regionId);
     }

@@ -1,18 +1,54 @@
 package com.spring.rest.client.bean;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.OptionalDouble;
+import java.util.OptionalInt;
 
 public class DealBean {
-    private int dealId;
-    private Date dealDate;
+    private OptionalInt dealId;
+    private OptionalDouble price;
+    private LocalDateTime dealDate;
     private FlatBean flat;
-    private Float price;
 
-    public DealBean(int dealId, Date dealDate, FlatBean flat, Float price) {
+    public DealBean(final OptionalInt dealId, final OptionalDouble price,
+                    final LocalDateTime dealDate, final FlatBean flat) {
         this.dealId = dealId;
+        this.price = price;
         this.dealDate = dealDate;
         this.flat = flat;
+    }
+
+    public DealBean(final int dealId, final double price,
+                    final LocalDateTime dealDate, final FlatBean flat) {
+        this.dealId = OptionalInt.of(dealId);
+        this.price = OptionalDouble.of(price);
+        this.dealDate = dealDate;
+        this.flat = flat;
+    }
+
+    public OptionalInt getDealId() {
+        return dealId;
+    }
+
+    public void setDealId(OptionalInt dealId) {
+        this.dealId = dealId;
+    }
+
+    public OptionalDouble getPrice() {
+        return price;
+    }
+
+    public void setPrice(OptionalDouble price) {
         this.price = price;
+    }
+
+    public LocalDateTime getDealDate() {
+        return dealDate;
+    }
+
+    public void setDealDate(LocalDateTime dealDate) {
+        this.dealDate = dealDate;
     }
 
     public FlatBean getFlat() {
@@ -21,29 +57,5 @@ public class DealBean {
 
     public void setFlat(FlatBean flat) {
         this.flat = flat;
-    }
-
-    public int getDealId() {
-        return dealId;
-    }
-
-    public void setDealId(int dealId) {
-        this.dealId = dealId;
-    }
-
-    public Date getDealDate() {
-        return dealDate;
-    }
-
-    public void setDealDate(Date dealDate) {
-        this.dealDate = dealDate;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
     }
 }
