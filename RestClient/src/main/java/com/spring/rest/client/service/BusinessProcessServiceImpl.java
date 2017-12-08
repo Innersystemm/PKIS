@@ -30,6 +30,12 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
     @Autowired
     private Configuration configuration;
 
+    public List<DealBean> getDetailedStatisticByInterval(String from, String to, int skip, int recordsCount){
+        LocalDateTime fromDate = LocalDateTime.parse(from);
+        LocalDateTime toDate = LocalDateTime.parse(to);
+        return getDetailedStatisticByInterval(fromDate, toDate, skip, recordsCount);
+    }
+
     @Override
     public List<DealBean> getDetailedStatisticByInterval(LocalDateTime from, LocalDateTime to, int skip, int recordsCount) {
         try {

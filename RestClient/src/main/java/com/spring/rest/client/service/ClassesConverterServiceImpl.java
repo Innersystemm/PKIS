@@ -38,7 +38,7 @@ public class ClassesConverterServiceImpl implements ClassesConverterService {
                 OptionalInt.of(flat.getFlatID()),
                 OptionalDouble.of(flat.getArea()),
                 OptionalInt.of(flat.getRooms()),
-                Optional.of(flat.isBalcony()),
+                flat.isBalcony(),
                 convertRegion(flat.getFlatRegion().getValue()));
     }
 
@@ -74,7 +74,7 @@ public class ClassesConverterServiceImpl implements ClassesConverterService {
     public Flat convertFlatBean(FlatBean flat) {
         Flat fl = new ObjectFactory().createFlat();
         fl.setArea(flat.getFlatArea().orElse(-1));
-        fl.setBalcony(flat.getHaveBalcony().orElse(false));
+        fl.setBalcony(flat.getHaveBalcony());
         fl.setRooms(flat.getFlatRooms().orElse(-1));
         fl.setFlatID(flat.getFlatId().orElse(-1));
         fl.setFlatRegion(new ObjectFactory().createFlatFlatRegion(

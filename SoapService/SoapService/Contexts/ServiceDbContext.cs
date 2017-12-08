@@ -49,7 +49,7 @@ namespace SoapService.Contexts
 
         }
 
-        protected List<Deal> SeedDeals(uint count = 50)
+        protected List<Deal> SeedDeals(uint count = 25)
         {
             List<Deal> result = new List<Deal>();
             if (count < 1) return result;
