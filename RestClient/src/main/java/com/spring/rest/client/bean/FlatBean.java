@@ -1,6 +1,5 @@
 package com.spring.rest.client.bean;
 
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 

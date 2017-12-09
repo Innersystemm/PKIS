@@ -1,27 +1,20 @@
 package com.spring.rest.client.bean;
 
-import java.util.Optional;
-import java.util.OptionalInt;
-
 public class RegionBean {
-    private OptionalInt regionID;
+    private int regionID;
     private String regionName;
 
-    public RegionBean(OptionalInt regionID, String regionName) {
+    public RegionBean(int regionID, String regionName) {
         this.regionID = regionID;
         this.regionName = regionName;
     }
 
-    public RegionBean(int regionID, String regionName) {
-        this.regionID = OptionalInt.of(regionID);
-        this.regionName = regionName;
-    }
 
-    public OptionalInt getRegionID() {
+    public int getRegionID() {
         return regionID;
     }
 
-    public void setRegionID(OptionalInt regionID) {
+    public void setRegionID(int regionID) {
         this.regionID = regionID;
     }
 

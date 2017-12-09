@@ -3,11 +3,8 @@ package com.spring.rest.client.service;
 import com.spring.rest.client.bean.AverageStatisticBean;
 import com.spring.rest.client.bean.DealBean;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public interface BusinessProcessService {
     /**
@@ -15,7 +12,7 @@ public interface BusinessProcessService {
      *
      * @param from         начальная дата
      * @param to           коненая дата
-     * @param skip        сколько записей будет пропущено
+     * @param skip         сколько записей будет пропущено
      * @param recordsCount необходимое количество записей
      * @return <p>коллекцию DealBean отфильтрованную по дате и ограниченную параметрами skip, recordsCount</p>
      */
@@ -35,7 +32,7 @@ public interface BusinessProcessService {
      * <p>Развернутая статистика по значениям</p>
      *
      * @param parameterNames значения по которым производить фильтрацию
-     * @param skip          сколько записей будет пропущено
+     * @param skip           сколько записей будет пропущено
      * @param recordsCount   необходимое количество записей
      * @return <p>коллекцию DealBean отфильтрованную по указанным параметрам ограниченную параметрами skip, recordsCount</p>
      */

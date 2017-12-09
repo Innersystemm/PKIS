@@ -8,7 +8,7 @@ public interface ParameterParserService {
 
     <T extends DealBean> Object getFieldValue(T item, final String fieldName);
 
-    default boolean compare(double first, double second, ParameterParserServiceImpl.TOKENS token){
+    default boolean compare(double first, double second, ParameterParserServiceImpl.TOKENS token) {
         switch (token) {
             case BIGGER: {
                 return first > second;
@@ -16,25 +16,25 @@ public interface ParameterParserService {
             case EQUALS: {
                 return first == second;
             }
-            case SMALLER:{
+            case SMALLER: {
                 return first < second;
             }
-            case NOT_EQUALS:{
+            case NOT_EQUALS: {
                 return first != second;
             }
-            case BIGGER_OR_EQUALS:{
+            case BIGGER_OR_EQUALS: {
                 return first >= second;
             }
-            case SMALLER_OR_EQUALS:{
+            case SMALLER_OR_EQUALS: {
                 return first <= second;
             }
-            default:{
+            default: {
                 throw new IllegalArgumentException("Invalid token");
             }
         }
     }
 
-    default boolean compare(String first, String second, ParameterParserServiceImpl.TOKENS token){
+    default boolean compare(String first, String second, ParameterParserServiceImpl.TOKENS token) {
         switch (token) {
             case BIGGER: {
                 return false;
@@ -42,19 +42,19 @@ public interface ParameterParserService {
             case EQUALS: {
                 return first.equalsIgnoreCase(second);
             }
-            case SMALLER:{
+            case SMALLER: {
                 return false;
             }
-            case NOT_EQUALS:{
+            case NOT_EQUALS: {
                 return !first.equalsIgnoreCase(second);
             }
-            case BIGGER_OR_EQUALS:{
+            case BIGGER_OR_EQUALS: {
                 return false;
             }
-            case SMALLER_OR_EQUALS:{
+            case SMALLER_OR_EQUALS: {
                 return false;
             }
-            default:{
+            default: {
                 throw new IllegalArgumentException("Invalid token");
             }
         }

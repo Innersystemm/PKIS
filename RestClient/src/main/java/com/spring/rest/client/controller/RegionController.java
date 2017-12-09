@@ -3,10 +3,7 @@ package com.spring.rest.client.controller;
 import com.spring.rest.client.bean.RegionBean;
 import com.spring.rest.client.service.LocalRegionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +13,7 @@ public class RegionController {
     @Autowired
     private LocalRegionService service;
 
+    @CrossOrigin
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<RegionBean> getAllRegions() {
         return service.getRegions();

@@ -13,9 +13,7 @@ import wsdl.bean.ObjectFactory;
 import wsdl.bean.Region;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
@@ -29,7 +27,7 @@ public class ClassesConverterServiceImpl implements ClassesConverterService {
 
     public RegionBean convertRegion(Region region) {
         return new RegionBean(
-                OptionalInt.of(region.getRegionID()),
+                region.getRegionID(),
                 region.getRegionName().getValue());
     }
 
@@ -66,7 +64,7 @@ public class ClassesConverterServiceImpl implements ClassesConverterService {
 
     public Region convertRegionBean(RegionBean region) {
         Region reg = new ObjectFactory().createRegion();
-        reg.setRegionID(region.getRegionID().orElse(-1));
+        reg.setRegionID(region.getRegionID());
         reg.setRegionName(new ObjectFactory().createRegionRegionName(region.getRegionName()));
         return reg;
     }

@@ -1,36 +1,32 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Spring Boot Thymeleaf Hello World Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css"
-          href="webjars/bootstrap/3.3.7/css/bootstrap.min.css"/>
-
+    <!--  <script type="text/javascript"  th:src="@{resources/static/main.js}"></script>-->
+    <link th:href="@{/css/base.css}" rel="stylesheet"/>
 </head>
 <body>
 <div>
-    <div>
-        <form th:action="@{/getDetailedStatisticByInterval}" th:object="${customer}" method="post">
-            <table id="table-data">
-                <tr th:each="item: ${result}">
-                    <td th:text="${item.dealId.asInt}"></td>
-                    <td th:text="${item.price.asDouble}"></td>
-                    <td th:text="${item.dealDate}"></td>
-                    <td th:text="${item.flat.flatId.asInt}"></td>
-                    <td th:text="${item.flat.flatArea.asDouble}"></td>
-                    <td th:text="${item.flat.flatRooms.asInt}"></td>
-                    <td th:text="${item.flat.haveBalcony}"></td>
-                    <td th:text="${item.flat.flatRegion.regionName}"></td>
-                </tr>
-            </table>
-            <button type="submit">Delete</button>
-        </form>
+    <div class="content-div">
 
-        <div>
-            <button onclick="">prev</button>
-            <button onclick="">next</button>
-        </div>
+        <table id="table-data">
+            <!--/*@thymesVar id="result" type="com.spring.rest.client.bean.DealBean"*/-->
+            <tr th:each="item: ${result}">
+                <td th:text="${item.dealId.asInt}"></td>
+                <td th:text="${item.price.asDouble}"></td>
+                <td th:text="${item.dealDate}"></td>
+                <td th:text="${item.flat.flatId.asInt}"></td>
+                <td th:text="${item.flat.flatArea.asDouble}"></td>
+                <td th:text="${item.flat.flatRooms.asInt}"></td>
+                <td th:text="${item.flat.haveBalcony}"></td>
+                <td th:text="${item.flat.flatRegion.regionName}"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="button-div">
+        <button onclick="">prev</button>
+        <button onclick="">next</button>
     </div>
 </div>
 </body>

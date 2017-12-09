@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,7 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
     @Autowired
     private Configuration configuration;
 
-    public List<DealBean> getDetailedStatisticByInterval(String from, String to, int skip, int recordsCount){
+    public List<DealBean> getDetailedStatisticByInterval(String from, String to, int skip, int recordsCount) {
         LocalDateTime fromDate = LocalDateTime.parse(from);
         LocalDateTime toDate = LocalDateTime.parse(to);
         return getDetailedStatisticByInterval(fromDate, toDate, skip, recordsCount);
@@ -49,7 +48,7 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
     public AverageStatisticBean getAverageStatisticByInterval(List<DealBean> dataSource, LocalDateTime from, LocalDateTime to) {
         try {
             List<DealBean> dealsFilteredByDate = dataSource.stream()
-                    .filter(n->n.getDealDate().isBefore(to) && n.getDealDate().isAfter(from)).collect(Collectors.toList());
+                    .filter(n -> n.getDealDate().isBefore(to) && n.getDealDate().isAfter(from)).collect(Collectors.toList());
 
             return new AverageStatisticBean(
                     dealsFilteredByDate.stream()
@@ -108,7 +107,7 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
     public AverageStatisticBean getAverageStatisticByParameters(final List<String> parameterNames) {
         return getAverageStatisticByInterval(
                 getDetailedStatisticByParameters(parameterNames, 0, 999999999),
-                LocalDateTime.of(1500, 12, 1, 0 ,0 ,0),
+                LocalDateTime.of(1500, 12, 1, 0, 0, 0),
                 LocalDateTime.now());
     }
 }

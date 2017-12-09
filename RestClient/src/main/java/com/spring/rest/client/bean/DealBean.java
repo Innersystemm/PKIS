@@ -1,6 +1,5 @@
 package com.spring.rest.client.bean;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;

@@ -6,6 +6,7 @@ import com.spring.rest.client.bean.RegionBean;
 import com.spring.rest.client.service.DateConverterService;
 import com.spring.rest.client.service.LocalDealService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class DealController {
     @Autowired
     private DateConverterService dateConverter;
 
+    @CrossOrigin
     @RequestMapping(value = "/all")
     public List<DealBean> getFlats() {
         return service.getDeals();

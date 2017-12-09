@@ -7,11 +7,8 @@ import com.spring.rest.client.bean.RegionBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import sun.rmi.runtime.Log;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
-import java.util.stream.Collectors;
 
 @Service
 public class ParameterParserServiceImpl implements ParameterParserService {
@@ -82,9 +79,9 @@ public class ParameterParserServiceImpl implements ParameterParserService {
                 return getFlatFieldValue(fieldName, object.getFlat());
             } catch (NoSuchFieldException | IllegalAccessException ex) {
                 log.warn(String.format("In %s field not found, going deeper", item.getFlat().getClass().getName()));
-                try{
+                try {
                     return getRegionFieldValue(fieldName, object.getFlat().getFlatRegion());
-                }catch (NoSuchFieldException | IllegalAccessException exx){
+                } catch (NoSuchFieldException | IllegalAccessException exx) {
                     log.error(String.format("In %s field not found", item.getFlat().getFlatRegion().getClass().getName()), exx);
                     return "";
                 }
@@ -103,7 +100,7 @@ public class ParameterParserServiceImpl implements ParameterParserService {
 
     private Object getRegionFieldValue(String fieldName, RegionBean object) throws NoSuchFieldException, IllegalAccessException {
         Field field = object.getClass().getDeclaredField(fieldName);
-        if (!field.isAccessible()){
+        if (!field.isAccessible()) {
             field.setAccessible(true);
         }
         return field.get(object);

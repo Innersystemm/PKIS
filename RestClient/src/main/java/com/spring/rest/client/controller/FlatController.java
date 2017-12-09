@@ -4,6 +4,7 @@ import com.spring.rest.client.bean.FlatBean;
 import com.spring.rest.client.bean.RegionBean;
 import com.spring.rest.client.service.LocalFlatService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,6 +17,7 @@ public class FlatController {
     @Autowired
     private LocalFlatService service;
 
+    @CrossOrigin
     @RequestMapping(value = "/all")
     public List<FlatBean> getFlats() {
         return service.getFlats();
