@@ -44,7 +44,7 @@ namespace SoapService.Contexts
         protected override void Seed(ServiceDbContext context)
         {
             context.Configuration.AutoDetectChangesEnabled = false;
-            context.Deals.AddRange(SeedDeals(15));
+            context.Deals.AddRange(SeedDeals(1500));
             context.Configuration.AutoDetectChangesEnabled = true;
 
         }
@@ -65,7 +65,7 @@ namespace SoapService.Contexts
                     {
                         Area = rand.Next(10, 300),
                         Rooms = rand.Next(1, 6),
-                        Balcony = Convert.ToBoolean(rand.Next(0, 1)),
+                        Balcony = Convert.ToBoolean(rand.Next(0, 2)),
                         Region = new Region()
                         {
                             Name = new string(name.Select(n => name.ElementAt(rand.Next(0, name.Length))).ToArray())

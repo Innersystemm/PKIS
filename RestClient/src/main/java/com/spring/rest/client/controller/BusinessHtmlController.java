@@ -20,6 +20,17 @@ public class BusinessHtmlController {
                                                  @RequestParam("recordsCount") int recordsCount,
                                                  Map<String, Object> model) {
         model.put("result", dataLoader.getDetailedStatisticByInterval(from, to, skip, recordsCount));
+
         return "statistic_data";
+    }
+    @RequestMapping("/")
+    public String getIndex(Map<String, Object> model) {
+        return "index";
+    }
+
+    @RequestMapping("/business")
+    public String getBusinessIndexPage(Map<String, Object> model){
+        model.put("selection_data", "fd");
+        return "extended_statistic";
     }
 }

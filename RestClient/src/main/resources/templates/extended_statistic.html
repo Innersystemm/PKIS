@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <script type="text/javascript" src="extended-statistic.js" th:src="@{/js/extended-statistic.js}"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+</head>
+<body>
+<div>
+    <h1>async bitch</h1>
+</div>
+<div>
+    <div>
+        <div>
+            <label>Выберите тип отчета: <select>
+                <option value="1">Развернутая статистика за интервал</option>
+                <option value="1">Усреденнные данные за интервал</option>
+                <option value="1">Развернутая статистика по значениям</option>
+                <option value="1">Усредненная статистика по значениям</option>
+            </select></label>
+        </div>
+        <div>
+            <label>Выберите интервал:
+                <div>
+                    <label>От:<input type="date"/></label>
+                    <label>До:<input type="date"/></label>
+                </div>
+            </label>
+        </div>
+        <div>
+            <label>Выберите параметры по которым будет произведена фильтрация:
+                <!--/*@thymesVar id="selection_data" type="string"*/-->
+                <select th:data="${selection_data}">
+                </select>
+                <div>
+                    <label>
+                        <select id="select-parameter">
+                            <option selected="selected" value="g">></option>
+                            <option value="ge">>=</option>
+                            <option value="l"><</option>
+                            <option value="le"><=</option>
+                            <option value="eq">=</option>
+                            <option value="ne">!=</option>
+                        </select>
+                    </label>
+                    <input id="selected-parameter-value" type="text">
+                </div>
+                <div>
+                    <button onclick="addParameter();">Добавить</button>
+                </div>
+                <div>
+                    <label>Выбранные параметры:<p id="selected-params-list"></p></label>
+
+                </div>
+            </label>
+        </div>
+        <div>
+            <label>Данные:
+                <table>
+                </table>
+            </label>
+        </div>
+    </div>
+</div>
+</body>
+</html>
