@@ -14,6 +14,7 @@ import wsdl.bean.Region;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.util.List;
+import java.util.Objects;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 import java.util.stream.Collectors;
@@ -50,15 +51,15 @@ public class ClassesConverterServiceImpl implements ClassesConverterService {
 
 
     public List<DealBean> convertDeals(List<Deal> deals) {
-        return deals.stream().filter(n -> null != n).map(n -> convertDeal(n)).collect(Collectors.toList());
+        return deals.stream().filter(Objects::nonNull).map(this::convertDeal).collect(Collectors.toList());
     }
 
     public List<RegionBean> convertRegions(List<Region> regions) {
-        return regions.stream().filter(n -> null != n).map(n -> convertRegion(n)).collect(Collectors.toList());
+        return regions.stream().filter(Objects::nonNull).map(this::convertRegion).collect(Collectors.toList());
     }
 
     public List<FlatBean> convertFlats(List<Flat> flats) {
-        return flats.stream().filter(n -> null != n).map(n -> convertFlat(n)).collect(Collectors.toList());
+        return flats.stream().filter(Objects::nonNull).map(this::convertFlat).collect(Collectors.toList());
     }
 
 

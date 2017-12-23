@@ -110,4 +110,13 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
                 LocalDateTime.of(1500, 12, 1, 0, 0, 0),
                 LocalDateTime.now());
     }
+
+    public List<String> getRequiredParameters(){
+        List<String> parameters = new ArrayList<>();
+        parameters.addAll(configuration.getDoubleKeys());
+        parameters.addAll(configuration.getIntKeys());
+        parameters.addAll(configuration.getBoolKeys());
+        parameters.addAll(configuration.getStringKeys());
+        return parameters;
+    }
 }

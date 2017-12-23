@@ -2,8 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <script type="text/javascript" src="extended-statistic.js" th:src="@{/js/extended-statistic.js}"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="extended-statistic.js" th:src="@{/js/extended-statistic.js}"></script>
+    <link th:href="@{/css/extended.css}" rel="stylesheet"/>
 </head>
 <body>
 <div>
@@ -11,54 +12,71 @@
 </div>
 <div>
     <div>
-        <div>
-            <label>Выберите тип отчета: <select>
-                <option value="1">Развернутая статистика за интервал</option>
-                <option value="1">Усреденнные данные за интервал</option>
-                <option value="1">Развернутая статистика по значениям</option>
-                <option value="1">Усредненная статистика по значениям</option>
-            </select></label>
-        </div>
-        <div>
-            <label>Выберите интервал:
+        <div  class="parameters-div">
+            <div class="report-type-div">
+                <label>Выберите тип отчета: <select id="report-type-select"
+                                                    onchange="if (this.selectedIndex) reportSelected(); else reportSelected();">
+                    <option th:href="@{/statistic/byInterval/detailed}">Развернутая статистика за интервал</option>
+                    <option th:href="@{/statistic/byInterval/average}">Усреденнные данные за интервал</option>
+                    <option th:href="@{/statistic/byParameters/getDetailedStatisticByValue}">Развернутая статистика по значениям
+                    </option>
+                    <option th:href="@{/statistic/byParameters/getAverageStatisticByValue}">Усредненная статистика по значениям
+                    </option>
+                </select></label>
+                <input type="text" id="report-type" style="visibility: hidden"/>
+            </div>
+            <div class="interval-select-div">
+                <label>Выберите интервал:</label>
                 <div>
-                    <label>От:<input type="date"/></label>
-                    <label>До:<input type="date"/></label>
+                    <label>От:<input id="interval-from" type="date"/></label>
+                    <label>До:<input id="interval-to" type="date"/></label>
                 </div>
-            </label>
-        </div>
-        <div>
-            <label>Выберите параметры по которым будет произведена фильтрация:
-                <!--/*@thymesVar id="selection_data" type="string"*/-->
-                <select th:data="${selection_data}">
-                </select>
+            </div>
+            <div class="filter-parameters-div">
+                <label>Выберите параметры по которым будет произведена фильтрация:
+                    <!--/*@thymesVar id="selection_data" type="string[]"*/-->
+                    <select id="filtration-params">
+                        <option th:each="opt: ${selection_data}" th:value="${opt}" th:text="${opt}"></option>
+                    </select></label>
                 <div>
                     <label>
                         <select id="select-parameter">
-                            <option selected="selected" value="g">></option>
-                            <option value="ge">>=</option>
-                            <option value="l"><</option>
-                            <option value="le"><=</option>
-                            <option value="eq">=</option>
-                            <option value="ne">!=</option>
+                            <option value="&gt;">&gt;</option>
+                            <option value="&gt;=">&gt;=</option>
+                            <option value="&lt;">&lt;</option>
+                            <option value="&lt;=|">&lt;=</option>
+                            <option value="=">=</option>
+                            <option value="!=">!=</option>
                         </select>
                     </label>
-                    <input id="selected-parameter-value" type="text">
+                    <input id="selected-parameter-value" type="text"/>
                 </div>
                 <div>
                     <button onclick="addParameter();">Добавить</button>
                 </div>
                 <div>
-                    <label>Выбранные параметры:<p id="selected-params-list"></p></label>
-
+                    <label>Выбранные параметры:</label>
+                    <p id="selected-params-list"></p>
                 </div>
-            </label>
+            </div>
+            <div>
+                <button class="button-get-report" onclick="sendRequest(getRequestUrl());">Получить данные</button>
+            </div>
         </div>
-        <div>
-            <label>Данные:
-                <table>
+        <div class="response-div">
+            <div class="report-table-div">
+                <label>Данные:
+                </label>
+                <table id="returned-result-table" class="response-table">
                 </table>
-            </label>
+                <div class="report-navigation-div">
+                    <input type="number" style="visibility: hidden" id="report-current-page" value="0"/>
+                    <button onclick="nextPage();">Вперед</button>
+                    <button onclick="prevPage();">Назад</button>
+                </div>
+            </div>
+
+
         </div>
     </div>
 </div>

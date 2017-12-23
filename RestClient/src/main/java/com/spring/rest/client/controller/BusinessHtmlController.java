@@ -30,7 +30,8 @@ public class BusinessHtmlController {
 
     @RequestMapping("/business")
     public String getBusinessIndexPage(Map<String, Object> model){
-        model.put("selection_data", "fd");
+        model.put("selection_data", dataLoader.getRequiredParameters());
+
         return "extended_statistic";
     }
 }

@@ -2,6 +2,7 @@ server:
   port: 8080
 spring.devtools.remote.secret: mysecret
 spring.thymeleaf.templateResolverOrder: 1
+spring.thymeleaf.cache: false
 parameters:
   intKeys:
   - flatRooms

@@ -1,0 +1,71 @@
+.requestParameter {
+    border-left: solid 5px;
+    padding: 7px;
+    border-color: #3bc7ba;
+    font-family: sans-serif;
+    font-weight: 600;
+    background: #f7fff8;
+    display: block;
+}
+
+.response-table {
+    border-width: 2px;
+    min-width: 250px;
+    height: 500px;
+    border: solid;
+
+}
+
+.parameters-div {
+    position: relative;
+    float: left;
+    font-family: sans-serif;
+}
+
+.response-div{
+    position: relative;
+    border: thin;
+    font-family: sans-serif;
+    align-content: center;
+    justify-content: center;
+    display: flex;
+}
+
+.report-type-div{
+    padding: 5px;
+}
+
+.interval-select-div{
+    padding: 5px;
+}
+
+.filter-parameters-div{
+    padding: 5px;
+}
+
+label{
+    padding: 5px;
+}
+
+button{
+    padding: 5px;
+    margin: 5px;
+}
+
+.button-get-report{
+    margin: 10px;
+}
+
+.report-navigation-div{
+    position: relative;
+    font-family: sans-serif;
+    align-content: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.report-table-div{
+    display: inline-block;
+}

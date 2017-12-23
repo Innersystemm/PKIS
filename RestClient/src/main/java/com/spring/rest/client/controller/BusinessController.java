@@ -39,14 +39,14 @@ public class BusinessController {
                 dateConverterService.toLocalDateTime(to));
     }
 
-    @RequestMapping("/getDetailedStatisticByValue")
+    @RequestMapping("/byParameters/detailed")
     public List<DealBean> getDetailedStatisticByValue(@RequestParam("params") final List<String> params,
                                                       @RequestParam("skip") final int skip,
                                                       @RequestParam("recordsCount") final int recordsCount) {
         return businessProcessService.getDetailedStatisticByParameters(params, skip, recordsCount);
     }
 
-    @RequestMapping("/getAverageStatisticByValue")
+    @RequestMapping("/byParameters/average")
     public AverageStatisticBean getAverageStatisticByValue(@RequestParam("params") final List<String> params) {
         return businessProcessService.getAverageStatisticByParameters(params);
     }
