@@ -16,7 +16,6 @@ import java.util.List;
 public class BusinessController {
     @Autowired
     private BusinessProcessService businessProcessService;
-
     @Autowired
     private DateConverterService dateConverterService;
 
@@ -33,7 +32,6 @@ public class BusinessController {
     @RequestMapping("/byInterval/average")
     public AverageStatisticBean getAverageStatistic(@RequestParam("from") final String from,
                                                     @RequestParam("to") final String to) {
-
         return businessProcessService.getAverageStatisticByInterval(
                 dateConverterService.toLocalDateTime(from),
                 dateConverterService.toLocalDateTime(to));

@@ -79,24 +79,21 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
                         n -> parameterParser.compare(
                                 (double) ((OptionalInt) parameterParser.getFieldValue(n, parsedParameter.getParameterName())).orElse(-1),
                                 parsedParameter.doubleValue(),
-                                parsedParameter.getToken()
-                        ))
+                                parsedParameter.getToken()))
                         .collect(Collectors.toList());
             } else if (configuration.getDoubleKeys().contains(parsedParameter.getParameterName())) {
                 localCollection = localCollection.stream().filter(
                         n -> parameterParser.compare(
                                 ((OptionalDouble) parameterParser.getFieldValue(n, parsedParameter.getParameterName())).orElse(-1),
                                 parsedParameter.doubleValue(),
-                                parsedParameter.getToken()
-                        ))
+                                parsedParameter.getToken()))
                         .collect(Collectors.toList());
             } else if (configuration.getStringKeys().contains(parsedParameter.getParameterName())) {
                 localCollection = localCollection.stream().filter(
                         n -> parameterParser.compare(
                                 (String) parameterParser.getFieldValue(n, parsedParameter.getParameterName()),
                                 parsedParameter.stringValue(),
-                                parsedParameter.getToken()
-                        ))
+                                parsedParameter.getToken()))
                         .collect(Collectors.toList());
             }
         }
@@ -111,7 +108,7 @@ public class BusinessProcessServiceImpl implements BusinessProcessService {
                 LocalDateTime.now());
     }
 
-    public List<String> getRequiredParameters(){
+    public List<String> getRequiredParameters() {
         List<String> parameters = new ArrayList<>();
         parameters.addAll(configuration.getDoubleKeys());
         parameters.addAll(configuration.getIntKeys());

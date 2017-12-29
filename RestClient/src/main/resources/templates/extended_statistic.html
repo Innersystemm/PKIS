@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-    <h1>async bitch</h1>
+    <h1>async</h1>
 </div>
 <div>
     <div>
@@ -18,9 +18,9 @@
                                                     onchange="if (this.selectedIndex) reportSelected(); else reportSelected();">
                     <option th:href="@{/statistic/byInterval/detailed}">Развернутая статистика за интервал</option>
                     <option th:href="@{/statistic/byInterval/average}">Усреденнные данные за интервал</option>
-                    <option th:href="@{/statistic/byParameters/getDetailedStatisticByValue}">Развернутая статистика по значениям
+                    <option th:href="@{/statistic/byParameters/detailed}">Развернутая статистика по значениям
                     </option>
-                    <option th:href="@{/statistic/byParameters/getAverageStatisticByValue}">Усредненная статистика по значениям
+                    <option th:href="@{/statistic/byParameters/average}">Усредненная статистика по значениям
                     </option>
                 </select></label>
                 <input type="text" id="report-type" style="visibility: hidden"/>

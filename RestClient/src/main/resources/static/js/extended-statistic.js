@@ -17,7 +17,24 @@ function sendRequest(urlAddr) {
         type: 'get',
         dataType: "json",
         success: function (data) {
-            alert(data);
+            var json = "<tr><td>id</td><td>price</td><td>day</td><td>flatId</td><td>area</td><td>rooms</td><td>balcon</td><td>regionname</td></tr>";
+
+            if (urlAddr.indexOf("detailed") >= 0) {
+                $.each(data, function (i, val) {
+                    json += "<tr><td>" + val.dealId.asInt + "</td><td>" + val.price.asDouble +
+                        "</td><td>" + val.dealDate.dayOfYear + "</td><td>" + val.flat.flatId.asInt +
+                        "</td><td>" + val.flat.flatArea.asDouble + "</td><td>" + val.flat.flatRooms.asInt +
+                        "</td><td>" + val.flat.haveBalcony + "</td><td>" + val.flat.flatRegion.regionName + "</td>";
+                });
+            }
+            if (urlAddr.indexOf("average") >= 0) {
+                params = (""+data).split(' ');
+
+                json = "<tr><td>averageDealCost=" + data.averageDealCost + "</td><td>" + "averageFlatArea="
+                    + data.averageFlatArea + "</td><td>" + "averageRoomsCount=" + data.averageRoomsCount + "</td></tr>";
+            }
+
+            $("#returned-result-table").html(json);
         },
         error: function (data) {
             alert("Something wrong:" + data.toString());
@@ -27,8 +44,8 @@ function sendRequest(urlAddr) {
 
 function getRequestUrl() {
     var data = $("a.requestParameter");
-    var data_from = "&from=" + $("#interval-to").val();
-    var data_to = "&to="  +$("#interval-to").val();
+    var data_from = "&from=" + $("#interval-from").val();
+    var data_to = "&to=" + $("#interval-to").val();
     var request = "&params=";
     $.each(data, function (i, val) {
         request += val.text + ",";
@@ -36,7 +53,7 @@ function getRequestUrl() {
     var skip = "&skip=" + $("#report-current-page").val();
     var take = "&recordsCount=25";
     var url = $("#report-type").val();
-    return url + "?" + data_from + data_to + skip + take + request;
+    return url + "?" + data_from + data_to + skip + take + request.substring(0, request.length - 1);
 }
 
 function reportSelected() {
@@ -47,14 +64,16 @@ function getData() {
     alert(getRequestUrl());
 }
 
-function nextPage(){
-    var value = $("report-current-page").val();
-    $("report-current-page").val(value + 25);
+function nextPage() {
+    var value = parseInt($("#report-current-page").val());
+    $("#report-current-page").val(value + 25);
+    sendRequest(getRequestUrl());
 }
 
-function prevPage(){
-    var value = $("report-current-page").val();
-    if (value - 25 >= 0){
-        $("report-current-page").val(value + 25);
+function prevPage() {
+    var value = parseInt($("#report-current-page").val());
+    if (value - 25 >= 0) {
+        $("#report-current-page").val(value - 25);
     }
+    sendRequest(getRequestUrl());
 }

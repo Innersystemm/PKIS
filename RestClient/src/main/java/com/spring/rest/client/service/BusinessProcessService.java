@@ -27,7 +27,6 @@ public interface BusinessProcessService {
      */
     AverageStatisticBean getAverageStatisticByInterval(LocalDateTime from, LocalDateTime to);
 
-
     /**
      * <p>Развернутая статистика по значениям</p>
      *
